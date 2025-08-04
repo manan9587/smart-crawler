@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browser-Use Agent</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header><h1>Browser-Use Agent Web Interface</h1></header>
+    <main>
+      <section class="card">
+        <h2>Configure Task</h2>
+        <textarea id="task-prompt" rows="3" placeholder="Enter task e.g., 'Search Amazon for cameras under $500'"></textarea>
+        <label>Upload Document:</label>
+        <input type="file" id="file-input" accept=".pdf,.txt,.csv"/>
+        <label>Upload Image:</label>
+        <input type="file" id="image-input" accept="image/*"/>
+        <img id="image-preview" src="" style="max-width:200px;display:none"/>
+        <div class="controls">
+          <button id="start-btn">Start</button>
+          <button id="pause-btn" disabled>Pause</button>
+          <button id="continue-btn" disabled>Continue</button>
+          <button id="stop-btn" disabled>Stop</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Agent Activity</h2>
+        <img id="browser-screenshot" src="" alt=""/>
+        <div id="progress-log"></div>
+      </section>
+      <section class="card">
+        <h2>Results</h2>
+        <table id="results-table">
+          <thead><tr><th>Item</th><th>Description</th><th>Price</th><th>URL</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <button onclick="exportCSV()">Export CSV</button>
+        <button onclick="exportJSON()">Export JSON</button>
+      </section>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
