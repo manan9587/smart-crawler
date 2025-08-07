@@ -1,25 +1,68 @@
-# Browser-Use Web Application
+Browser-Use Web App — Windows Setup Guide
+Prerequisites
+Windows 10 or later
 
-A complete web application that integrates Browser-Use agents for AI-powered browser automation through an intuitive web interface.
+Python 3.11+ installed and on your PATH
 
-![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green.svg)
-![Browser-Use](https://img.shields.io/badge/Browser--Use-Latest-orange.svg)
+Git (for cloning the repository)
 
-## 🚀 Features
-- AI-powered browser automation via natural language
-- Real-time monitoring with live screenshots and logs
-- PDF/TXT/CSV **and** image upload for context
-- Pause/resume mid-task for interactive workflows
-- Export results as CSV, JSON, or Excel
-- Multi-LLM support: GPT-4, Claude, Gemini, etc.
-- Secure API-key handling and file validation
+1. Clone the Repository
+Open PowerShell and run:
 
-## 📋 Prerequisites
-- Python 3.11+
-- Git
-- OpenAI API key (or other LLM keys)
+powershell
+git clone <repo_url>
+cd browser-use-web-app
+2. Create & Activate Virtual Environment
+powershell
+python -m venv venv
+.\venv\Scripts\activate.ps1
+If you see an execution policy error, run:
 
-## 🛠️ Quick Setup
+powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Then retry activating.
 
-### Linux/macOS
+3. Install Dependencies
+powershell
+pip install --upgrade pip
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+4. Install Playwright Browsers
+powershell
+playwright install --with-deps chromium firefox webkit
+5. Configure Environment
+Copy example environment file and add your API keys:
+
+powershell
+copy config\.env.example config\.env
+notepad config\.env
+In config\.env, set:
+
+text
+OPENAI_API_KEY=sk-your-openai-key
+GOOGLE_API_KEY=your-google-key
+ANTHROPIC_API_KEY=your-anthropic-key
+6. Run the Application
+powershell
+uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
+You should see:
+
+text
+INFO: Uvicorn running on http://127.0.0.1:8000
+7. Open in Browser
+Navigate to:
+
+text
+http://127.0.0.1:8000
+Features
+OpenAI & Google Gemini & Anthropic support
+
+Real-time browser view & activity logs
+
+Pause / Resume / Stop agent controls
+
+PDF / TXT / CSV file upload for context
+
+Export extracted results as CSV or JSON
+
+Enjoy automating your workflows with the agent!

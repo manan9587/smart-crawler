@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Browser-Use Agent</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Browser-Use Agent</h1>
+    <textarea id="task" placeholder="Enter task"></textarea>
+    <input id="apiKey" placeholder="API Key"/>
+    <select id="provider">
+      <option>openai</option>
+      <option>gemini</option>
+    </select>
+    <select id="model">
+      <option>gpt-4</option>
+      <option>gpt-4o</option>
+    </select>
+    <button id="start">Start</button>
+    <button id="pause" disabled>Pause</button>
+    <button id="resume" disabled>Resume</button>
+    <button id="stop" disabled>Stop</button>
+    <div id="log"></div>
+    <table id="results"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody></tbody></table>
+  </div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+body{font-family:sans-serif;background:#202124;color:#E8EAED;margin:1rem}
+.container{max-width:600px;margin:auto}
+textarea,input,select{width:100%;margin:0.5rem 0;padding:0.5rem;background:#303134;border:none;border-radius:4px;color:#E8EAED}
+button{margin:0.5rem 0;padding:0.5rem 1rem;border:none;border-radius:4px;background:#8AB4F8;color:#202124;cursor:pointer}
+button:disabled{opacity:0.5;cursor:default}
+#log{background:#3C4043;padding:1rem;height:150px;overflow:auto;border-radius:4px}
+table{width:100%;border-collapse:collapse;margin-top:1rem}
+th,td{padding:0.5rem;border:1px solid #5F6368}
