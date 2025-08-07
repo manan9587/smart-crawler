@@ -1,0 +1,40 @@
+2025-08-07 15:56:18,544 - agent_manager - INFO - WebSocket connected. Total connections: 1
+2025-08-07 15:57:23,762 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-19' coro=<Connection.run() done, defined at C:\Users\Manan\Desktop\Automation\smart-crawler\browser-use-web-app\venv\Lib\site-packages\playwright\_impl\_connection.py:303> exception=NotImplementedError()>
+Traceback (most recent call last):
+  File "C:\Users\Manan\Desktop\Automation\smart-crawler\browser-use-web-app\venv\Lib\site-packages\playwright\_impl\_connection.py", line 310, in run
+    await self._transport.connect()
+  File "C:\Users\Manan\Desktop\Automation\smart-crawler\browser-use-web-app\venv\Lib\site-packages\playwright\_impl\_transport.py", line 133, in connect
+    raise exc
+  File "C:\Users\Manan\Desktop\Automation\smart-crawler\browser-use-web-app\venv\Lib\site-packages\playwright\_impl\_transport.py", line 120, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\Manan\AppData\Local\Programs\Python\Python313\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        stderr=stderr, **kwds)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manan\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 1794, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        protocol, popen_args, False, stdin, stdout, stderr,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        bufsize, **kwargs)
+        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Manan\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 539, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+2025-08-07 15:57:23,789 - agent_manager - ERROR - Failed to start browser: 
+2025-08-07 15:57:23,790 - agent_manager - ERROR - Agent execution error: Browser startup failed: 
+2025-08-07 15:58:38,688 - agent_manager - INFO - WebSocket disconnected. Total connections: 0
+2025-08-07 16:01:35,416 - agent_manager - INFO - WebSocket connected. Total connections: 1
+2025-08-07 16:11:06,751 - agent_manager - INFO - WebSocket disconnected. Total connections: 0
+2025-08-07 16:11:28,416 - agent_manager - INFO - WebSocket connected. Total connections: 1
+2025-08-07 16:11:38,404 - agent_manager - INFO - WebSocket disconnected. Total connections: 0
+2025-08-07 16:11:38,655 - agent_manager - INFO - WebSocket connected. Total connections: 1
+2025-08-07 16:11:55,807 - agent_manager - INFO - Parsing task: Search for 'artificial intelligence' and click on the first result
+2025-08-07 16:11:55,809 - agent_manager - INFO - Parsed search instruction: search for 'artificial intelligence' then click 'first result'

@@ -1,31 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Browser-Use Agent</title>
-  <link rel="stylesheet" href="/static/css/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser-Use Web Agent</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Browser-Use Agent</h1>
-    <textarea id="task" placeholder="Enter task"></textarea>
-    <input id="apiKey" placeholder="API Key"/>
-    <select id="provider">
-      <option>openai</option>
-      <option>gemini</option>
-    </select>
-    <select id="model">
-      <option>gpt-4</option>
-      <option>gpt-4o</option>
-    </select>
-    <button id="start">Start</button>
-    <button id="pause" disabled>Pause</button>
-    <button id="resume" disabled>Resume</button>
-    <button id="stop" disabled>Stop</button>
-    <div id="log"></div>
-    <table id="results"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody></tbody></table>
-  </div>
-  <script src="/static/js/app.js"></script>
+    <div class="container">
+        <header>
+            <h1>🤖 Browser-Use Web Agent</h1>
+            <div class="status-indicator">
+                <span id="status-dot" class="status-dot idle"></span>
+                <span id="status-text">Idle</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="config-section">
+                    <h3>Configuration</h3>
+                    
+                    <div class="form-group">
+                        <label for="llm-provider">LLM Provider:</label>
+                        <select id="llm-provider">
+                            <option value="openai">OpenAI</option>
+                            <option value="gemini">Google Gemini</option>
+                            <option value="anthropic">Anthropic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="model">Model:</label>
+                        <select id="model">
+                            <option value="gpt-4">GPT-4</option>
+                            <option value="gpt-4o">GPT-4o</option>
+                            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="api-key">API Key:</label>
+                        <input type="password" id="api-key" placeholder="Enter your API key">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="url">Target URL:</label>
+                        <input type="url" id="url" placeholder="https://example.com" value="https://example.com">
+                    </div>
+                </div>
+
+                <div class="task-section">
+                    <h3>Task Instructions</h3>
+                    <div class="form-group">
+                        <label for="task">Enter your task:</label>
+                        <textarea id="task" rows="4" placeholder="Example: Go to the login page, enter 'username' in the username field, enter 'password' in the password field, then click the login button"></textarea>
+                    </div>
+                    
+                    <div class="example-prompts">
+                        <p><strong>Example prompts:</strong></p>
+                        <div class="example-prompt" onclick="fillExampleTask(this)">
+                            Fill the contact form with name 'John Doe', email 'john@example.com', and message 'Hello World', then submit
+                        </div>
+                        <div class="example-prompt" onclick="fillExampleTask(this)">
+                            Search for 'artificial intelligence' and click on the first result
+                        </div>
+                        <div class="example-prompt" onclick="fillExampleTask(this)">
+                            Navigate to the pricing page and take a screenshot
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="start-btn" class="btn btn-primary">Start Agent</button>
+                    <button id="pause-btn" class="btn btn-secondary" disabled>Pause</button>
+                    <button id="resume-btn" class="btn btn-secondary" disabled>Resume</button>
+                    <button id="stop-btn" class="btn btn-danger" disabled>Stop</button>
+                </div>
+            </div>
+
+            <!-- Browser View and Logs -->
+            <div class="view-panel">
+                <!-- Browser Screenshot View -->
+                <div class="browser-view">
+                    <h3>Browser View <span id="screenshot-timestamp"></span></h3>
+                    <div class="screenshot-container">
+                        <img id="browser-screenshot" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI3MjAiIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyODAiIGhlaWdodD0iNzIwIiBmaWxsPSIjZjNmNGY2Ii8+CjxjaXJjbGUgY3g9IjY0MCIgY3k9IjM2MCIgcj0iNDAiIGZpbGw9IiM5Y2EzYWYiLz4KPHRleHQgeD0iNjQwIiB5PSI0MjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Yjc0ODMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2Ij5XYWl0aW5nIGZvciBicm93c2VyLi4uPC90ZXh0Pgo8L3N2Zz4K" alt="Browser view">
+                        <div class="screenshot-overlay" id="screenshot-overlay">
+                            <div class="loading-spinner"></div>
+                            <p>Waiting for browser...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Log -->
+                <div class="log-panel">
+                    <h3>Action Log</h3>
+                    <div class="log-container" id="log-container">
+                        <div class="log-entry info">
+                            <span class="timestamp">Ready</span>
+                            <span class="message">Agent ready to start</span>
+                        </div>
+                    </div>
+                    <button id="clear-log" class="btn btn-small">Clear Log</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="connection-status" id="connection-status">
+            <span class="connection-dot disconnected"></span>
+            <span>Connecting...</span>
+        </div>
+    </div>
+
+    <!-- Modal for errors -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Error</h2>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
 </body>
 </html>
